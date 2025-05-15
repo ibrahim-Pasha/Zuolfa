@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Business.Concrete
 {
     public class TeacherService:ITeacherService
     {
+
         private readonly ITeacherRepository _repository;
 
         public TeacherService(ITeacherRepository repository)
+
         {
             _repository = repository;
         }

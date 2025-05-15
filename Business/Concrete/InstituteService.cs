@@ -2,6 +2,7 @@
 using Data_Access.EntityFramework.Abstract;
 using Entities;
 
+
 namespace Business.Concrete
 {
     public class InstituteService : IInstituteService
@@ -9,6 +10,7 @@ namespace Business.Concrete
         private readonly IInstituteRepository _repository;
 
         public InstituteService(IInstituteRepository repository)
+
         {
             _repository = repository;
         }
