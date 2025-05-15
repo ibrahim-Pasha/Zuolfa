@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Entities;
 
-public class Center:IEntity
+public class Center : IEntity
 {
     public Guid Id { get; set; }
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     public Guid InstituteId { get; set; }
-    public Institute Institute { get; set; }
-
-    public ICollection<Classroom> Classrooms { get; set; }
+    [JsonIgnore]
+    public Institute? Institute { get; set; }
+    [JsonIgnore]
+    public ICollection<Classroom>? Classrooms { get; set; }
 }
