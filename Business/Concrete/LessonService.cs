@@ -1,4 +1,7 @@
 using Business.Absttract;
+
+using Data_Access.EntityFramework.Abstract;
+
 using Entities;
 using System;
 using System.Collections.Generic;
@@ -6,15 +9,17 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZuolfaWebApi.Data_Access.Concrete;
+
+
 
 namespace Business.Concrete
 {
     public class LessonService : ILessonService
     {
-        private readonly LessonRepository _repository;
+        private readonly ILessonRepository _repository;
 
-        public LessonService(LessonRepository repository)
+        public LessonService(ILessonRepository repository)
+
         {
             _repository = repository;
         }

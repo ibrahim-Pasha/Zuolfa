@@ -3,7 +3,9 @@ using System.Linq.Expressions;
 
 namespace Data_Access.EntityFramework.Abstract
 {
-    public interface IEntityRepository<T> where T : class, IEntity, new()
+
+    public interface IEntityRepository<T> where T : class, IEntity
+
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(Guid id);

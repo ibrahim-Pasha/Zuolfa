@@ -1,19 +1,16 @@
 ﻿using Business.Absttract;
-using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZuolfaWebApi.Data_Access.Concrete;
+
+using Data_Access.EntityFramework.Abstract;
 
 namespace Business.Concrete
 {
     public class ExerciseQuestionService:IExerciseQuestionService
     {
-        private readonly ExerciseQuestionRepository _repository;
 
-        public ExerciseQuestionService(ExerciseQuestionRepository repository)
+        private readonly IExerciseQuestionRepository _repository;
+
+        public ExerciseQuestionService(IExerciseQuestionRepository repository)
+
         {
             _repository = repository;
         }

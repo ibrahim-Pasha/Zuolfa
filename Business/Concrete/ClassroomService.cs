@@ -1,19 +1,16 @@
 using Business.Absttract;
-using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZuolfaWebApi.Data_Access.Concrete;
+
+using Data_Access.EntityFramework.Abstract;
 
 namespace EducationPlatformAPI.Services
 {
     public class ClassroomService : IClassroomService
     {
-        private readonly ClassroomRepository _repository;
 
-        public ClassroomService(ClassroomRepository repository)
+        private readonly IClassroomRepository _repository;
+
+        public ClassroomService(IClassroomRepository repository)
+
         {
             _repository = repository;
         }

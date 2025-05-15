@@ -1,19 +1,22 @@
 ﻿using Business.Absttract;
+using Data_Access.EntityFramework.Abstract;
 using Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZuolfaWebApi.Data_Access.Concrete;
+
 
 namespace Business.Concrete
 {
     public class TeacherService:ITeacherService
     {
-        private readonly TeacherRepository _repository;
 
-        public TeacherService(TeacherRepository repository)
+        private readonly ITeacherRepository _repository;
+
+        public TeacherService(ITeacherRepository repository)
+
         {
             _repository = repository;
         }

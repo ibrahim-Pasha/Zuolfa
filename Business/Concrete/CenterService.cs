@@ -1,19 +1,17 @@
 ﻿using Business.Absttract;
-using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZuolfaWebApi.Data_Access.Concrete;
+
+using Data_Access.EntityFramework.Abstract;
+
 
 namespace Business.Concrete
 {
     public class CenterService : ICenterService
     {
-        private readonly CenterRepository _repository;
 
-        public CenterService(CenterRepository repository)
+        private readonly ICenterRepository _repository;
+
+        public CenterService(ICenterRepository repository)
+
         {
             _repository = repository;
         }

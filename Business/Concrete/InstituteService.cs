@@ -1,20 +1,16 @@
 ﻿using Business.Absttract;
+using Data_Access.EntityFramework.Abstract;
 using Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZuolfaWebApi.Data_Access.Concrete;
+
 
 namespace Business.Concrete
 {
     public class InstituteService : IInstituteService
     {
-        private readonly InstituteRepository _repository;
+        private readonly IInstituteRepository _repository;
 
-        public InstituteService(InstituteRepository repository)
+        public InstituteService(IInstituteRepository repository)
+
         {
             _repository = repository;
         }
