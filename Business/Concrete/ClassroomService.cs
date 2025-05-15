@@ -1,6 +1,7 @@
 using Business.Absttract;
 
 using Data_Access.EntityFramework.Abstract;
+using Entities;
 
 namespace EducationPlatformAPI.Services
 {
