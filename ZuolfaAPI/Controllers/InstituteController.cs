@@ -16,42 +16,42 @@ namespace ZuolfaAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("getall")]
         public async Task<IActionResult> GetAll()
         {
             var data = await _service.GetAllAsync();
             return Ok(data);
         }
 
-        [HttpGet("GetBy{id}")]
+        [HttpGet("getby/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
-            if (result == null) return NotFound();
+            if (result == null) return Ok(null);
             return Ok(result);
         }
 
-        [HttpPost("Add")]
+        [HttpPost("insert")]
         public async Task<IActionResult> Create(Institute institute)
         {
             var created = await _service.CreateAsync(institute);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            return Ok( CreatedAtAction(nameof(GetById), new { id = created.Id }, created));
         }
 
-        [HttpPut("Update{id}")]
-        public async Task<IActionResult> Update(Guid id, Institute institute)
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> Update([FromRoute]Guid id, Institute institute)
         {
             var updated = await _service.UpdateAsync(id, institute);
             if (updated == null) return NotFound();
             return Ok(updated);
         }
 
-        [HttpDelete("Delete{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _service.DeleteAsync(id);
             if (!success) return NotFound();
-            return NoContent();
+            return Ok();
         }
     }
 }

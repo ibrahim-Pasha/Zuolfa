@@ -30,5 +30,14 @@ namespace ZuolfaWebApi.Data_Access.Concrete
             => _dbContext.Lessons.Remove(lesson);
         public async Task SaveAsync()
             => await _dbContext.SaveChangesAsync();
+
+        public async Task AddRangeAsync(IEnumerable<Lesson> entities)
+        
+          =>  await _dbContext.Set<Lesson>().AddRangeAsync(entities);
+
+        public async Task<int> CountAsync()
+
+         =>  await _dbContext.Lessons.CountAsync();
+        
     }
 }

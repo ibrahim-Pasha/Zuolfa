@@ -10,4 +10,6 @@ public class ExerciseQuestion : IEntity
     public Guid ExerciseId { get; set; }
     [JsonIgnore]
     public Exercise? Exercise { get; set; }
+    public bool isArchived { get; set; }
+
 }

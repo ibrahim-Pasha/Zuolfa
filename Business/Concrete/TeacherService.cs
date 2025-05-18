@@ -32,22 +32,21 @@ namespace Business.Concrete
             return entity;
         }
 
-        public async Task<Teacher> UpdateAsync(Guid id, Teacher updated)
+        public async Task<Teacher> UpdateAsync(Guid id, Teacher reqTeacher)
         {
-            var existing = await _repository.GetByIdAsync(id);
-            if (existing == null) return null;
-
-            _repository.Update(updated);
+            var domainTeacher = await _repository.GetByIdAsync(id);
+            if (domainTeacher == null) return null;
+            domainTeacher.FullName = reqTeacher.FullName;
             await _repository.SaveAsync();
-            return updated;
+            return reqTeacher;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var existing = await _repository.GetByIdAsync(id);
-            if (existing == null) return false;
+            var domainTeacher = await _repository.GetByIdAsync(id);
+            if (domainTeacher == null) return false;
 
-            _repository.Delete(existing);
+            _repository.Delete(domainTeacher);
             await _repository.SaveAsync();
             return true;
         }

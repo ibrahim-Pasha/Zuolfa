@@ -1,4 +1,5 @@
 ﻿using Business.Absttract;
+using Business.Concrete;
 using Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,14 @@ namespace ZuolfaAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<Lesson>>> GetAll()
         {
             var lessons = await _service.GetAllAsync();
             return Ok(lessons);
         }
 
-        [HttpGet("GetBy{id}")]
+        [HttpGet("getby/{id}")]
         public async Task<ActionResult<Lesson>> GetById(Guid id)
         {
             var lesson = await _service.GetByIdAsync(id);
@@ -31,14 +32,21 @@ namespace ZuolfaAPI.Controllers
             return Ok(lesson);
         }
 
-        [HttpPost("Add")]
+        [HttpPost("insert")]
         public async Task<ActionResult<Lesson>> Create(Lesson lesson)
         {
             var created = await _service.CreateAsync(lesson);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            return Ok( CreatedAtAction(nameof(GetById), new { id = created.Id }, created));
         }
 
-        [HttpPut("Update{id}")]
+        [HttpPost("insert/lessons")]
+        public async Task<IActionResult> AddManyLessons([FromBody] List<Lesson> lessons)
+        {
+            var result = await _service.CreateManyAsync(lessons);
+            return Ok(result);
+        }
+
+        [HttpPut("update/{id}")]
         public async Task<ActionResult<Lesson>> Update(Guid id, Lesson lesson)
         {
             var updated = await _service.UpdateAsync(id, lesson);
@@ -46,12 +54,12 @@ namespace ZuolfaAPI.Controllers
             return Ok(updated);
         }
 
-        [HttpDelete("Delete{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var deleted = await _service.DeleteAsync(id);
             if (!deleted) return NotFound();
-            return NoContent();
+            return Ok();
         }
     }
 }

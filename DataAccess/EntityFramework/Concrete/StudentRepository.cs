@@ -30,5 +30,10 @@ namespace ZuolfaWebApi.Data_Access.Concrete
             => _dbContext.Students.Remove(student);
         public async Task SaveAsync()
             => await _dbContext.SaveChangesAsync();
+        public async Task AddRangeAsync(IEnumerable<Student> entities)
+        
+         =>   await _dbContext.Set<Student>().AddRangeAsync(entities);
+        
     }
+
 }

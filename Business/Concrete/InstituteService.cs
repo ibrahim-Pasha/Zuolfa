@@ -17,7 +17,11 @@ namespace Business.Concrete
 
         public async Task<IEnumerable<Institute>> GetAllAsync() => await _repository.GetAllAsync();
 
-        public async Task<Institute> GetByIdAsync(Guid id) => await _repository.GetByIdAsync(id);
+        public async Task<Institute> GetByIdAsync(Guid id)
+        {
+            var institute = await _repository.GetByIdAsync(id);
+            return institute;
+        }
 
         public async Task<Institute> CreateAsync(Institute institute)
         {
@@ -39,8 +43,7 @@ namespace Business.Concrete
 
             existing.Name = updated.Name;
             existing.Lessons = updated.Lessons;
-
-            _repository.Update(existing);
+            existing.Centers = updated.Centers;
             await _repository.SaveAsync();
             return existing;
         }

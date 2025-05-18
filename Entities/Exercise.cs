@@ -16,5 +16,6 @@ public class Exercise:IEntity
     [JsonIgnore]
     public Lesson? Lesson { get; set; }
 
-    public required ICollection<ExerciseQuestion> Questions { get; set; }
+    public ICollection<ExerciseQuestion>? Questions { get; set; }
+    public bool isArchived { get; set; }
 }

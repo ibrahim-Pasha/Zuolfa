@@ -35,8 +35,6 @@ namespace Business.Concrete
 
             existing.Name = updated.Name;
             existing.InstituteId = updated.InstituteId;
-
-            _repository.Update(existing);
             await _repository.SaveAsync();
             return existing;
         }

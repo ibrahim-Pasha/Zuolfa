@@ -31,8 +31,12 @@ namespace EducationPlatformAPI.Services
         {
             var existing = await _repository.GetByIdAsync(id);
             if (existing == null) return null;
-
-            _repository.Update(updated);
+            if (updated.Students == null || updated.Students.Count < 1)
+                throw new ArgumentException("Students count of class room must be more than 1");
+            existing.CenterId = updated.CenterId;
+            existing.TeacherId = updated.TeacherId;
+            existing.Name = updated.Name;
+            existing.Students = updated.Students;
             await _repository.SaveAsync();
             return updated;
         }

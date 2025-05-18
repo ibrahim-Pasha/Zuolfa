@@ -15,14 +15,14 @@ namespace ZuolfaAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetAll()
         {
             var teachers = await _service.GetAllAsync();
             return Ok(teachers);
         }
 
-        [HttpGet("GetBy{id}")]
+        [HttpGet("getby/{id}")]
         public async Task<ActionResult<Teacher>> GetById(Guid id)
         {
             var teacher = await _service.GetByIdAsync(id);
@@ -30,14 +30,14 @@ namespace ZuolfaAPI.Controllers
             return Ok(teacher);
         }
 
-        [HttpPost("Add")]
+        [HttpPost("insert")]
         public async Task<ActionResult<Teacher>> Create(Teacher teacher)
         {
             var created = await _service.CreateAsync(teacher);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            return Ok( CreatedAtAction(nameof(GetById), new { id = created.Id }, created));
         }
 
-        [HttpPut("Update{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult<Teacher>> Update(Guid id, Teacher teacher)
         {
             var updated = await _service.UpdateAsync(id, teacher);
@@ -45,12 +45,12 @@ namespace ZuolfaAPI.Controllers
             return Ok(updated);
         }
 
-        [HttpDelete("Delete{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var deleted = await _service.DeleteAsync(id);
             if (!deleted) return NotFound();
-            return NoContent();
+            return Ok();
         }
     }
 }

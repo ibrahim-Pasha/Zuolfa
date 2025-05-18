@@ -14,5 +14,9 @@ namespace Business.Absttract
         Task<ExerciseQuestion> CreateAsync(ExerciseQuestion entity);
         Task<ExerciseQuestion> UpdateAsync(Guid id, ExerciseQuestion updatedEntity);
         Task<bool> DeleteAsync(Guid id);
+        Task<List<ExerciseQuestion>> CreateManyAsync(List<ExerciseQuestion> exerciseQuestion);
+        Task<IEnumerable<ExerciseQuestion>> GetArchivedAsync();
+
+
     }
 }

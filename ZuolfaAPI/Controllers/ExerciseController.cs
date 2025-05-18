@@ -15,14 +15,14 @@ namespace ZuolfaAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<Exercise>>> GetAll()
         {
             var exercises = await _service.GetAllAsync();
             return Ok(exercises);
         }
 
-        [HttpGet("GetBy{id}")]
+        [HttpGet("getby/{id}")]
         public async Task<ActionResult<Exercise>> GetById(Guid id)
         {
             var exercise = await _service.GetByIdAsync(id);
@@ -30,14 +30,14 @@ namespace ZuolfaAPI.Controllers
             return Ok(exercise);
         }
 
-        [HttpPost("Add")]
+        [HttpPost("insert")]
         public async Task<ActionResult<Exercise>> Create(Exercise exercise)
         {
             var created = await _service.CreateAsync(exercise);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            return Ok( CreatedAtAction(nameof(GetById), new { id = created.Id }, created));
         }
 
-        [HttpPut("Update{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult<Exercise>> Update(Guid id, Exercise exercise)
         {
             var updated = await _service.UpdateAsync(id, exercise);
@@ -45,12 +45,18 @@ namespace ZuolfaAPI.Controllers
             return Ok(updated);
         }
 
-        [HttpDelete("Delete{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var deleted = await _service.DeleteAsync(id);
             if (!deleted) return NotFound();
-            return NoContent();
+            return Ok();
+        }
+        [HttpGet("getarchived")]
+        public async Task<ActionResult<IEnumerable<Exercise>>> GetArchived()
+        {
+            var exercises = await _service.GetArchivedAsync();
+            return Ok(exercises);
         }
     }
 }

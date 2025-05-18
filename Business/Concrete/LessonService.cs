@@ -34,23 +34,39 @@ namespace Business.Concrete
             await _repository.SaveAsync();
             return entity;
         }
-
-        public async Task<Lesson> UpdateAsync(Guid id, Lesson updated)
+        public async Task<List<Lesson>> CreateManyAsync(List<Lesson> lessons)
         {
-            var existing = await _repository.GetByIdAsync(id);
-            if (existing == null) return null;
-
-            _repository.Update(updated);
+            var existingCount = await _repository.CountAsync();
+            if (existingCount + lessons.Count <= 4)
+            {
+                throw new InvalidOperationException("Total Count Of Lessons must be more than 4");
+            }
+            await _repository.AddRangeAsync(lessons);
             await _repository.SaveAsync();
-            return updated;
+            return lessons;
+        }
+
+        public async Task<Lesson> UpdateAsync(Guid id, Lesson reqLesson)
+        {
+            var domainLesson = await _repository.GetByIdAsync(id);
+            if (domainLesson == null) return null;
+            domainLesson.Title=reqLesson.Title;
+            domainLesson.InstituteId=reqLesson.InstituteId;
+            await _repository.SaveAsync();
+            return reqLesson;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var existing = await _repository.GetByIdAsync(id);
-            if (existing == null) return false;
+            var existingCount = await _repository.CountAsync();
+            if (existingCount -1 <= 4)
+            {
+                throw new InvalidOperationException("Total Count Of Lessons must be more than 4");
+            }
+            var domainLesson = await _repository.GetByIdAsync(id);
+            if (domainLesson == null) return false;
 
-            _repository.Delete(existing);
+            _repository.Delete(domainLesson);
             await _repository.SaveAsync();
             return true;
         }

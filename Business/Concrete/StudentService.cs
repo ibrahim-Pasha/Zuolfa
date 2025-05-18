@@ -35,25 +35,32 @@ namespace Business.Concrete
             return entity;
         }
 
-        public async Task<Student> UpdateAsync(Guid id, Student updated)
+        public async Task<List<Student>> CreateManyAsync(List<Student> students)
+        {
+            await _repository.AddRangeAsync(students);
+            await _repository.SaveAsync();
+            return students;
+        }
+
+        public async Task<Student> UpdateAsync(Guid id, Student reqStudent)
 
         {
-            var existing = await _repository.GetByIdAsync(id);
-            if (existing == null) return null;
-
-            _repository.Update(updated);
+            var domainStudent = await _repository.GetByIdAsync(id);
+            if (domainStudent == null) return null;
+            domainStudent.FullName=reqStudent.FullName;
+            domainStudent.ClassroomId=reqStudent.ClassroomId;
             await _repository.SaveAsync();
-            return updated;
+            return reqStudent;
         }
 
 
         public async Task<bool> DeleteAsync(Guid id)
 
         {
-            var existing = await _repository.GetByIdAsync(id);
-            if (existing == null) return false;
+            var domainStudent = await _repository.GetByIdAsync(id);
+            if (domainStudent == null) return false;
 
-            _repository.Delete(existing);
+            _repository.Delete(domainStudent);
             await _repository.SaveAsync();
             return true;
         }

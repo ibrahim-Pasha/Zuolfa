@@ -15,7 +15,7 @@ namespace ZuolfaWebApi.Data_Access.Concrete
             _dbContext = dbContext;
         }
         public async Task<IEnumerable<Exercise>> GetAllAsync()
-         => await _dbContext.Exercises.ToListAsync();
+         => await _dbContext.Exercises.Where(e => !e.isArchived).Include(e=>e.Questions.Where(e => !e.isArchived)).ToListAsync();
 
         public async Task<Exercise> GetByIdAsync(Guid id)
             => await _dbContext.Exercises.FindAsync(id);
@@ -30,5 +30,10 @@ namespace ZuolfaWebApi.Data_Access.Concrete
             => _dbContext.Exercises.Remove(exercise);
         public async Task SaveAsync()
             => await _dbContext.SaveChangesAsync();
+
+        public async Task<IEnumerable<Exercise>> GetArchivedAsync()
+        
+         => await _dbContext.Exercises.Where(e => e.isArchived).Include(e => e.Questions).ToListAsync();
+        
     }
 }

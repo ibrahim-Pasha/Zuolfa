@@ -16,14 +16,14 @@ namespace ZuolfaAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<ExerciseQuestion>>> GetAll()
         {
             var questions = await _service.GetAllAsync();
             return Ok(questions);
         }
 
-        [HttpGet("GetBy{id}")]
+        [HttpGet("getby/{id}")]
         public async Task<ActionResult<ExerciseQuestion>> GetById(Guid id)
         {
             var question = await _service.GetByIdAsync(id);
@@ -31,14 +31,21 @@ namespace ZuolfaAPI.Controllers
             return Ok(question);
         }
 
-        [HttpPost("Add")]
+        [HttpPost("insert")]
         public async Task<ActionResult<ExerciseQuestion>> Create(ExerciseQuestion question)
         {
             var created = await _service.CreateAsync(question);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            return Ok( CreatedAtAction(nameof(GetById), new { id = created.Id }, created));
         }
 
-        [HttpPut("Update{id}")]
+        [HttpPost("insert/exercisequestions")]
+        public async Task<IActionResult> AddManyStudents([FromBody] List<ExerciseQuestion> exerciseQuestion)
+        {
+            var result = await _service.CreateManyAsync(exerciseQuestion);
+            return Ok(result);
+        }
+
+        [HttpPut("update/{id}")]
         public async Task<ActionResult<ExerciseQuestion>> Update(Guid id, ExerciseQuestion question)
         {
             var updated = await _service.UpdateAsync(id, question);
@@ -46,12 +53,18 @@ namespace ZuolfaAPI.Controllers
             return Ok(updated);
         }
 
-        [HttpDelete("Delete{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var deleted = await _service.DeleteAsync(id);
             if (!deleted) return NotFound();
-            return NoContent();
+            return Ok();
+        }
+        [HttpGet("getarchived")]
+        public async Task<ActionResult<IEnumerable<ExerciseQuestion>>> GetArchived()
+        {
+            var exercises = await _service.GetArchivedAsync();
+            return Ok(exercises);
         }
     }
 }

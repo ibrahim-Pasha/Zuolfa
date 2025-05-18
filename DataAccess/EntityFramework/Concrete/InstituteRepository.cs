@@ -15,7 +15,7 @@ namespace ZuolfaWebApi.Data_Access.Concrete
             _dbContext = dbContext;
         }
         public async Task<IEnumerable<Institute>> GetAllAsync()
-         => await _dbContext.Institutes.ToListAsync();
+         => await _dbContext.Institutes.Include(i=>i.Lessons).Include(i=>i.Centers).ToListAsync();
 
         public async Task<Institute> GetByIdAsync(Guid id)
             => await _dbContext.Institutes.FindAsync(id);

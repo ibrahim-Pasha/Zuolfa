@@ -1,9 +1,4 @@
 ﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Absttract
 {
@@ -15,5 +10,7 @@ namespace Business.Absttract
         Task<Exercise> CreateAsync(Exercise entity);
         Task<Exercise> UpdateAsync(Guid id, Exercise updatedEntity);
         Task<bool> DeleteAsync(Guid id);
+        Task<IEnumerable<Exercise>> GetArchivedAsync();
+
     }
 }

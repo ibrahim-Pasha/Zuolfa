@@ -14,5 +14,7 @@ namespace Business.Absttract
         Task<Lesson> CreateAsync(Lesson entity);
         Task<Lesson> UpdateAsync(Guid id, Lesson updatedEntity);
         Task<bool> DeleteAsync(Guid id);
+        Task<List<Lesson>> CreateManyAsync(List<Lesson> lessons);
+
     }
 }

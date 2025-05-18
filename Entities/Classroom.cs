@@ -8,10 +8,11 @@ public class Classroom : IEntity
     public required string Name { get; set; }
 
     public Guid CenterId { get; set; }
+    [JsonIgnore]
     public Center? Center { get; set; }
 
     public Guid TeacherId { get; set; }
+    [JsonIgnore]
     public Teacher? Teacher { get; set; }
-    [JsonRequired]
-    public required ICollection<Student> Students { get; set; }
+    public ICollection<Student>? Students { get; set; }
 }

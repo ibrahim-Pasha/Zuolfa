@@ -30,8 +30,10 @@ namespace Business.Concrete
         {
             var existing = await _repository.GetByIdAsync(id);
             if (existing == null) return null;
-
-            _repository.Update(updated);
+            existing.Title = updated.Title;
+            existing.Questions = updated.Questions;
+            existing.LessonId = updated.LessonId;
+            existing.isArchived = updated.isArchived;
             await _repository.SaveAsync();
             return updated;
         }
@@ -45,5 +47,10 @@ namespace Business.Concrete
             await _repository.SaveAsync();
             return true;
         }
+
+        public async Task<IEnumerable<Exercise>> GetArchivedAsync()
+        
+            => await _repository.GetArchivedAsync();
+        
     }
 }

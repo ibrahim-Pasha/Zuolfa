@@ -30,5 +30,12 @@ namespace ZuolfaWebApi.Data_Access.Concrete
             => _dbContext.ExerciseQuestions.Remove(exercisequestion);
         public async Task SaveAsync()
             => await _dbContext.SaveChangesAsync();
+        public async Task AddRangeAsync(IEnumerable<ExerciseQuestion> entities)
+
+         => await _dbContext.Set<ExerciseQuestion>().AddRangeAsync(entities);
+
+        public async Task<IEnumerable<ExerciseQuestion>> GetArchivedAsync()
+
+         => await _dbContext.ExerciseQuestions.Where(e => e.isArchived).ToListAsync();
     }
 }
